@@ -13,14 +13,14 @@ favicon: /favicon.ico
 keywords: Laomanco,建筑,设计,码农,足球,音乐,羽毛球
 
 home_nav:
-  - name: Blog
+  - name: Life
     url: /archives
     target_blank: false #不在新页面打开
-  - name: Project
+  - name: Tech
     url: /project/
     target_blank: true #在新页面打开
-  - name: About
-    url: /About
+  - name: Me
+    url: /about/
     target_blank: true
 
 # config page nav
@@ -40,12 +40,7 @@ page_nav:
   - name: 关于
     url: /about/
     target_blank: false
-  - name: RSS
-    url: /atom.xml
-    target_blank: true # 在新页面打开
-  - name: 搜索
-    url: /search/
-    target_blank: false # 在新页面打开
+
 
 page_nav_style: CIRCLE  # CIRCLE|ROUND_RECT
 
@@ -88,9 +83,6 @@ donation:
     - type: 支付宝
       text: 支付宝扫一扫
       imgUrl: /images/qr-alipay.png
-
-
-
 
 post:
   header_align: CENTER # LEFT|CENTER
@@ -161,31 +153,10 @@ about:
     text_value: 上海
 
 link:
-  - name: 织网
-    info: 身体和灵魂，总有一个在路上
-    url: http://zheng-ji.info/
-    avatar: https://avatars3.githubusercontent.com/u/1414745?v=3&s=100
-  - name: Dongyado
-    info: 生命不止，折腾不息
-    url: http://dongyado.com/
-    avatar: https://avatars0.githubusercontent.com/u/6274940?v=3&s=100
-  - name: OrangeCoder
-    info: android ffmpeg nodejs gradle
-    url: http://orangecoder.com/
-    avatar: https://avatars0.githubusercontent.com/u/2263785?v=3&s=100
-  - name: EverET
-    info: 好记性不如烂笔头
-    url: http://everet.org/about-me/
-    avatar: https://avatars1.githubusercontent.com/u/1559563?v=3&s=100
-  - name: 题叶
-    info: FP, GUI, Writing
-    url: http://tiye.me/
-    avatar: https://avatars2.githubusercontent.com/u/449224?v=3&s=100
-  - name: McChen
-    info: Stay Hungry, Stay Foolish
-    url: http://mcchen.club/
-    avatar: https://avatars0.githubusercontent.com/u/8033333?v=3&s=100
-
+  - name: 流年
+    info: 落叶旋起的气息 迷失了整个黄昏风
+    url: http://xiaoyingwenwen.blogbus.com/
+    avatar: 
 
 project:
   - type: personal
@@ -204,39 +175,3 @@ project:
     name: web-fontmin
     url: https://github.com/forsigner/web-fontmin
     intro: 字体子集化，在线提取你需要的字体
-  - type: personal
-    name: magic-check
-    url: https://github.com/forsigner/magic-check
-    intro: Beautify Radio and Checkbox with pure CSS
-  - type: personal
-    name: nice-bar
-    url: https://github.com/forsigner/nice-bar
-    intro: A nice and lightweight scrollbar
-  - type: personal
-    name: angular-nice-bar
-    url: https://github.com/forsigner/angular-nice-bar
-    intro: A nice and lightweight scrollbar in Angular
-  - type: personal
-    name: fo-popover
-    url: https://github.com/forsigner/fo-popover
-    intro: A nice popover for Angular
-  - type: personal
-    name: fo-tooltip
-    url: A nice tooltip for Angular
-    intro: https://github.com/forsigner/fo-tooltip
-  - type: personal
-    name: fo-modal
-    url: https://github.com/forsigner/fo-modal
-    intro: A nice modal for Angular
-  - type: personal
-    name: mocer
-    url: https://github.com/forsigner/mocer
-    intro: Setup a mock server easily
-  - type: personal
-    name: node-pngdefry
-    url: https://github.com/forsigner/node-pngdefry
-    intro: Repairing iPhone fried PNGs using Node.js
-  - type: personal
-    name: ng-simditor
-    url: https://github.com/forsigner/ng-simditor
-    intro: Angular directive for simditor
