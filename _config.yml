@@ -44,8 +44,12 @@ highlight:
   tab_replace:
 
 # Category & Tag
-default_category: uncategorized
-category_map:
+default_category: 声·色
+category_map: 
+	声·色： life
+	阅读·悦读： read
+	随心·随行： travel
+	技术·记述： tech
 tag_map:
 
 # Date / Time format
@@ -64,6 +68,8 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: fexo
+
+# disqus_shortname: laomanco
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
