@@ -23,12 +23,12 @@ Hexo是一款基于Node.js的静态博客框架，所谓的静态博客，就是
 >(5). 代码管理 
 
 
-# 1. 如何搭建网站：使用Hexo #
+# 如何搭建网站：使用Hexo #
 
 使用Hexo来搭建一个博客系统，包含下面几个部分的工作：
 
 
-## 1.1 Hexo环境配置 ##
+## Hexo环境配置 ##
 
 [Hexo](http://hexo.io/zh-cn/) 是基于Node.js的，安装好Node以后，直接通过npm就可以安装Hexo以及相关的扩展。然后因为是Hexo是通过Git来发布信息的，所以Git，以及Github（或者其他的替代产品，e.g.国内的BitBucket，CitCafe）的账号也是必须的。
 
@@ -56,7 +56,7 @@ $ hexo
 ```
 看是否出现Commands的提示，有就说明一切正常，可以进行下一步了
 
-## 1.2 新建一个Blog网站 ##
+## 新建一个Blog网站 ##
 
 安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。
 
@@ -67,7 +67,7 @@ $ npm install
 ```
 经过这三个简单的命令，一个Hex的博客网站就建成了。默认情况下，会安装一个landscape的主题，和一篇hello world的文章。
 
-## 1.3 进行本地测试 ##
+## 进行本地测试 ##
 在命令行里面输入
 ```
 $ hexo s
@@ -87,18 +87,18 @@ INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.
 
 完成以后，会生成一个Hexo项目的文件夹，名字就是前面 *init* 命令参数里面的*folder*，各个文件夹的含义参考[官方网站说明](https://hexo.io/zh-cn/docs/setup.html)
 
-## 1.4 往Blog里面添加一篇新的文章##
+## 往Blog里面添加一篇新的文章##
 
 <div align="center">
 <img src="vs_code.png" width="80%" align="center">
 </div>
 
-## 1.5 扩展功能：设置Blog的主题Theme ##
-## 1.6 扩展功能: Catalog/Tag/Comments... ##
+## 扩展功能：设置Blog的主题Theme ##
+## 扩展功能: Catalog/Tag/Comments... ##
 
 
 
-# 2. Host在哪里：Cloud 或者Git Pages #
+# Host在哪里：Cloud 或者Git Pages #
 
 ## Git Pages ##
 
