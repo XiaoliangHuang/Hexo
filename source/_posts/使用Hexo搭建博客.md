@@ -85,7 +85,7 @@ INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.
 <img src="hello_world.png" width="80%" align="center">
 </div>
 
-完成以后，会生成一个Hexo项目的文件夹，名字就是前面 *init* 命令参数里面的*folder*，各个文件夹的含义参考[官方网站说明](https://hexo.io/zh-cn/docs/setup.html)
+完成以后，会生成一个Hexo项目的文件夹，名字就是前面 *init* 命令参数里面的*folder*，各个文件夹的含义参考[官方网站说明](https://hexo.io/zh-cn/docs/setup.html)。
 
 ## 往Blog里面添加一篇新的文章##
 
@@ -93,18 +93,33 @@ INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.
 ```
 $ hexo new <title>
 ```
-然后打开 [/source/_posts]() 就会发现一个 *title.md* 命名的文件
+然后打开 [/source/_posts]() 就会发现一个 *title.md* 命名的文件，例如我的title是MyFirstBlog,于是就是生产一个名为 MyFirstBlog.md 文件，还有一个同名文件夹用来存放一些图片之类的资源文件供文章引用。
 
-
+```
+|--souce
+  |--_posts
+     |--MyFirstBlog
+     |--MyFirstBlog.md
+```
+打开 MyFirstBlog.md，可以看到如下的内容
 
 <div align="center">
-<img src="vs_code.png" width="80%" align="center">
+<img src="fisrt_blg.png" width="80%" align="center">
 </div>
 
-## 扩展功能：设置Blog的主题Theme ##
-## 扩展功能: Catalog/Tag/Comments... ##
+文件最上方用 --- 隔开的部分叫做 Front-matter，用来定义文件本身的一些属性，名字，日期什么的，还可以配置其他的Catagory,Tag之类的信息，具体内容可以参考 [官方文档Front-matter](https://hexo.io/zh-cn/docs/front-matter.html) 章节。
 
+剩下的部分就是正文了，用 Markdown 写文章成了这几年的一种主流方式，个人感觉是一种非常简洁的方式，语法比较简单，解释转换出来的效果也很干净，看起来觉得很舒服，或者说很专业，有点早年用Latex写论文的感觉，但是要容易很多。关于 Markdown语法，网上有很多的资料介绍，搜索 *“为什么要用 Markdown 写文章”* 就会出来很多介绍文章，这里就不详细展开了。当然，任何事情都有两面性，Markdown 也有它不足的地方，比如图片的引用，[反思Markdown：Markdown的长与短](https://sspai.com/post/37340) 里面总结的很好，可以花几分钟时间看看。
 
+需要说明的是，用Markdown写文档，并不是像Word一样所见即所得的，所以需要有专门的编辑器来进行一定的解释转换，晚上工具很多，到底哪个好也是看个人喜好，尝试了好几种的工具以后，偶然发现我软的 VS Code 可以支持 Markdown，个人就深深的喜欢上了。
+
+到这里为止，我们已经能够完整的在本地用Hexo搭建一个自己的博客了，Hexo还有很多其他的扩展功能，比如说
+```
+--设置Blog的主题
+--启用Catalog/Tag
+--添加第三方Comments插件
+```
+为了不打断读者的思路，将放在后面的地方进行介绍。在完成了本地环境的搭建以后，我们接下来要做的，是将这个Blog搬到真正可以puglic访问的网络上。
 
 # Host在哪里：Cloud 或者Git Pages #
 
@@ -139,6 +154,12 @@ $ hexo new <title>
 
 ## 新建一个Git Repository或者 Branch ##
 ## Project 结构： 那些需要同步 ##
+
+# 一些扩展功能的介绍 #
+
+## 扩展功能：设置Blog的主题Theme ##
+## 扩展功能: Catalog/Tag ##
+## 扩展功能：第三方Comments插件的使用 ##
 
 # 存在的问题 #
 # Refrence #
