@@ -3,6 +3,7 @@ title: 使用Hexo搭建博客
 date: 2017-03-21 00:51:38
 tags: [Hexo, 博客]
 categories: 技术
+comments: true
 ---
 
 最近在整理笔记的时候，发现OneNote跟EverNote这样的工具都不够方法，主要是排版，引用，语法强调跟层次结构上面很难满足需求，后来又看了简书之类的平台，本来是为了找一个写技术文档的地方的，最后发现了用Hexo来建立自己的博客的方式，在满足自己需求的前提下，还能够拥有自己的专属域名，觉得很cool，就研究了一下。
@@ -80,28 +81,37 @@ INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.
 ```
 在浏览器输入[localhost:4000](http://localhost:4000/) (4000是默认端口)就可以看到下面的网站首页了
 
-![](hello_world.png)
+<div align="center">
+<img src="hello_world.png" width="80%" align="center">
+</div>
 
 完成以后，会生成一个Hexo项目的文件夹，名字就是前面 *init* 命令参数里面的*folder*，各个文件夹的含义参考[官方网站说明](https://hexo.io/zh-cn/docs/setup.html)
 
-### 1.4 往Blog里面添加一篇新的文章###
+## 1.4 往Blog里面添加一篇新的文章##
 
-### 1.5 扩展功能：设置Blog的主题Theme###
-### 1.6 扩展功能: Catalog/Tag/Comments...###
+<div align="center">
+<img src="vs_code.png" width="80%" align="center">
+</div>
+
+## 1.5 扩展功能：设置Blog的主题Theme ##
+## 1.6 扩展功能: Catalog/Tag/Comments... ##
 
 
 
-## 2. Host在哪里：Cloud 或者Git Pages ##
+# 2. Host在哪里：Cloud 或者Git Pages #
 
-### Git Pages ###
+## Git Pages ##
 
-#### Git ###
+## Git ##
 
 如何注册GitHub以及建立Repository,可以参考 [20分钟教你使用hexo搭建github博客](http://www.jianshu.com/p/e99ed60390a8),。
 
 在最开是的需求里面，Git 是用来将生成的静态网站内容同步到GitHib上去的, 所以这里需要注册GitHub账号并且下载客户端, 实际上, 我们最会用到两个Git Repository, 一个用来上传Build出来的静态网站, 另外一个这是用来管理我们自己整个Hexo的project, 以便于我们可以随时的在不同的电脑上面进行修改. 其中的关系可以用下面的图来表示：
 
-![](git_repo.png)
+[//]:![](git_repo.png)>
+<div align="center">
+<img src="git_repo.png" width="80%" align="center">
+</div>
 
 需要注意的是，在create repository的时候，名字必须是{username}.github.io, 也就是GitHub默认分配给你账号的域名。详细原因在后面讲Deploy的章节来解释
 
@@ -126,7 +136,10 @@ INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.
 [npm 模块安装机制简介](http://www.ruanyifeng.com/blog/2016/01/npm-install.html)
 [Hexo官方网站](https://hexo.io/zh-cn/)
 [Markdown 中文文档](https://markdown-zh.readthedocs.io/en/latest/blockelements/)
-Repository,
 [Xmind 官方网站](http://www.xmind.net/)
 [让思路更清晰——我是怎样使用思维导图的](https://blog.coding.net/blog/coding-mindmap)
+[iPic + Typora，方便快捷地在 Markdown 中插图](https://sspai.com/post/36275)
+[如何在 Markdown 注释一段文字](http://www.jianshu.com/p/9be87e7e15bf)
+[MarkDown使用小技巧](http://www.jianshu.com/p/9d94660a96f1)
+[MarkDown编辑器 Typora](https://typora.io/)
 

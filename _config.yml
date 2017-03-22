@@ -69,8 +69,6 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: fexo
 
-# disqus_shortname: laomanco
-
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
