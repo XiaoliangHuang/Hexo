@@ -89,6 +89,14 @@ INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.
 
 ## 往Blog里面添加一篇新的文章##
 
+当测试环境调通以后，下面就尝试自己添加一篇blog文章吧，方法也是超级简单，只需要执行下面的命令就可以了
+```
+$ hexo new <title>
+```
+然后打开 [/source/_posts]() 就会发现一个 *title.md* 命名的文件
+
+
+
 <div align="center">
 <img src="vs_code.png" width="80%" align="center">
 </div>
@@ -116,23 +124,24 @@ INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.
 需要注意的是，在create repository的时候，名字必须是{username}.github.io, 也就是GitHub默认分配给你账号的域名。详细原因在后面讲Deploy的章节来解释
 
 
-### 第三方Cloud Service ###
+## 第三方Cloud Service ##
 
 
-## 3. 如何发布：deploy到git repository ##
+# 如何发布：deploy到git repository #
 
 
-## 4. 域名管理 ##
+# 域名管理 #
 
-### 购买域名 ###
-### 解析绑定域名到自己的Service ###
+## 购买域名 ##
+## 解析绑定域名到自己的Service ##
 
-## 5. 代码管理 ##
+# 代码管理 #
 
-### 新建一个Git Repository或者 Branch ###
-### Project 结构： 那些需要同步 ###
+## 新建一个Git Repository或者 Branch ##
+## Project 结构： 那些需要同步 ##
 
-## 6. Refrence ##
+# 存在的问题 #
+# Refrence #
 [npm 模块安装机制简介](http://www.ruanyifeng.com/blog/2016/01/npm-install.html)
 [Hexo官方网站](https://hexo.io/zh-cn/)
 [Markdown 中文文档](https://markdown-zh.readthedocs.io/en/latest/blockelements/)
@@ -142,4 +151,4 @@ INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.
 [如何在 Markdown 注释一段文字](http://www.jianshu.com/p/9be87e7e15bf)
 [MarkDown使用小技巧](http://www.jianshu.com/p/9d94660a96f1)
 [MarkDown编辑器 Typora](https://typora.io/)
-
+[反思Markdown：Markdown的长与短](https://sspai.com/post/37340)
