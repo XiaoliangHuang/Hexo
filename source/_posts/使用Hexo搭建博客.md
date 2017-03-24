@@ -119,7 +119,7 @@ $ hexo new <title>
 --启用Catalog/Tag
 --添加第三方Comments插件
 ```
-为了不打断读者的思路，将放在后面的地方进行介绍。在完成了本地环境的搭建以后，我们接下来要做的，是将这个Blog搬到真正可以puglic访问的网络上。
+为了不会因为走的太远而打断思路，这些扩展功能将放在后面进行介绍。在完成了本地环境的搭建以后，我们接下来要做的，是将这个Blog搬到真正可以puglic访问的网络上。
 
 # Host在哪里：Cloud 或者Git Pages #
 
@@ -166,6 +166,7 @@ $ hexo new <title>
 [npm 模块安装机制简介](http://www.ruanyifeng.com/blog/2016/01/npm-install.html)
 [Hexo官方网站](https://hexo.io/zh-cn/)
 [Markdown 中文文档](https://markdown-zh.readthedocs.io/en/latest/blockelements/)
+[Markdown 简单的世界](https://wizardforcel.gitbooks.io/markdown-simple-world/content/)
 [Xmind 官方网站](http://www.xmind.net/)
 [让思路更清晰——我是怎样使用思维导图的](https://blog.coding.net/blog/coding-mindmap)
 [iPic + Typora，方便快捷地在 Markdown 中插图](https://sspai.com/post/36275)
