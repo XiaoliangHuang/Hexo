@@ -162,6 +162,9 @@ $ hexo new <title>
 ## 扩展功能：第三方Comments插件的使用 ##
 
 # 存在的问题 #
+
+Git中文名乱码
+
 # Refrence #
 [npm 模块安装机制简介](http://www.ruanyifeng.com/blog/2016/01/npm-install.html)
 [Hexo官方网站](https://hexo.io/zh-cn/)
