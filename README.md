@@ -1,5 +1,5 @@
 # Code base for my Hexo Blog
-this is the personal blog with HEXO
+this is the personal blog with HEXO change from remote repository
 
 ## 1. Envrionment Setup ##
 To setup the HEXO environment with this repository, you need to:
