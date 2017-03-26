@@ -1,5 +1,5 @@
 # Code base for my Hexo Blog
-this is the personal blog with HEXO test conflict
+this is the personal blog with HEXO with resolved confict
 
 ## 1. Envrionment Setup ##
 To setup the HEXO environment with this repository, you need to:
