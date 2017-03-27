@@ -5,11 +5,66 @@ tags: [Git, 技术]
 categories: 技术
 ---
 
+# Git 概览 #
+
+下面这张图是根据自己理解画出来的关于git的一个大概的知识框架图，分别从版本控制的发展,Git的优点,原理和使用的角度队涉及到的知识进行了一个梳理, 最后还有一些遇到过的小问题或者是Tip的总结.
+
+![](git_knowledge_map.svg)
+
+
+## 版本控制的发展和历史 ##
+
+虽然只有几十年的时间, 但是版本控制已经有着几代的更新,最近几年,Git的发展则出现了一统江湖的局面。仔细想想，除了Git本身的优点之外，存储空间和网络速度的发展，也使得snapshot这种全量模式对空间/网络传输需求大的问题变得不那么严重，不然Git也不会有今天的江湖地位了。
+
+下面这张图描述了版本控制系统的一个总体概况，里面的绝大多数内容都来自[版本控制的前世和今生](http://gotgit.readthedocs.io/en/latest/01-meet-git/010-scm-history.html#cvs)，有兴趣的同学可以去查看原文。
+
+![](version_control.svg)
+
 
 # Git的原理和实现机制 #
-## Git 文件的状态机 ##
 
-最开始用Git 进行文件管理的时候，基本上就是几个最基本的命令：
+## 分布式的版本控制系统 ##
+
+相比于TFS/Subversion/SD这些集中式的版本控制系统，Git采取的是一种分布式的结构, 一个本地的repository就是一个完整的单机版本控制系统,加上服务器上面的remote repository以后,不同主机/用户之间就可以进行分享和协作了。
+
+## 保存修改文件的 snapshot 而不是增量 ##
+
+和以前集中式的版本控制系统（SVN...）所不同的是，当某个文件发生修改的时候，Git所保存的是一个全新的备份。如下图所示：
+
+<div align="center">
+<img src="git_snapshot.png" width="80%" align="center">
+</div>
+
+[//]:![](git_snapshot.png)
+
+这样带来的好处是切换速度快，要查看某个版本（某个commit）的project信息的时候，只需要把对应的文件拿出来就可以，所以Git从任意一个版本都能够很方便的进行build或者是拆分出新的branch出来。
+
+而不好的地方就是每次一点点小小的修改都要保存一整个文件的snapshot，这样空间上会非常浪费，从而影响push和get的性能，但是因为Git本身是分布式的，常规的操作都是在本地的repository里面进行的，也就是硬盘读写，加上网络速度和存储空间越来越好，这部分的影响相对会减轻。
+
+
+## 工作区， 暂存区 和 Git仓库 ##
+
+下图给出了Git 版本控制系统的基本机构：
+
+<div align="center">
+<img src="git_structure.png" width="70%" align="center">
+</div>
+
+[//]:![](git_structure.png)
+
+它包含四个主要部分：
+```
+1. WorkSpace: 
+    也叫Working Area或者工作目录，对项目的某个版本独立提取出来的内容。 这些从 Git 仓库的压缩数据库中提取出来的文件，放在磁盘上供你使用或修改。
+2. StagingArea: 
+    也叫做Index或者暂存区域，是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。
+3. Repository: 
+    也叫Git仓库，是 Git 用来保存项目的元数据和对象数据库的地方。 这是 Git 中最重要的部分，从其它计算机克隆仓库时，拷贝的就是这里的数据。
+4. RemoteRepository: 
+    网络服务器上面Git Center里面，用来保存Repository的地方，跟本地Repository相对应，通过Pull/Push/Clone等方式进行操作。
+```
+
+这四个部分，尤其是前面local的三个部分，构成了我们日常使用Git的主要场景，在尝试过一些git的基本操作，比如下面这些命令以后，需要再进一步的时候，就需要对于这样一个基本结构，还有这些地方与Git管理的文件的状态之间的对应关系有着清晰的认识。
 
 ```
 $ git pull
@@ -19,8 +74,38 @@ $ git commit -m "xxx"
 $ git push
 ```
 
-![](git_state_machine.png)
-![](git_state_machine2.png)
+
+## Git文件的状态和迁移 ##
+对应于上面一节提到的Git系统的几个部分，在某个时刻，使用Git管理的文件就有可能处于不同的位置，拥有不同的状态。下面的图就给出了Git文件可能的状态
+
+<div align="center">
+<img src="git_file_states.png" width="80%" align="center">
+</div>
+
+[//]:![](git_file_states.png)
+
+使用
+```
+$ git status -s
+```
+命令就可以查看新增/修改的文件和状态:
+<div align="center">
+<img src="git_status_bash_2.png" width="70%" align="center">
+</div>
+
+[//]:![](git_status_bash_2.png)
+
+还有一些UI的tool,比如VS Code,会有这更好的状态表示：
+
+<div align="center">
+<img src="git_status_vscode.png" width="70%" align="center">
+</div>
+
+[//]:![](git_status_vscode.png)
+
+
+但是使用命令行仍然是Git最主要和最为方便的模式,因此当你使用了一段时间的Git以后，使用 *git status -s* 命令查看文件的状态，并且清晰的知道其所在的位置（工作区，暂存区和git repository），和可能的状态转移，以及使用什么命令进行操作，就非常的重要了。这也是区别知道git和真正会用git的很重要一点。
+
 
 
 ## Paging 分页器 ##
@@ -162,3 +247,5 @@ $ export LESSCHARSET=utf-8
 [Learning Git Internals by Example](http://teohm.com/blog/learning-git-internals-by-example/)
 
 [通过示例学习Git内部构造（译）](http://blog.xiayf.cn/2013/09/28/learning-git-internals-by-example/)
+
+[图解git -- 用图片分析学习git原理](http://huanglei.me/git-theory.html)
