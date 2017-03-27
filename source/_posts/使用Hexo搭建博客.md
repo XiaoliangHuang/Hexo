@@ -163,7 +163,31 @@ $ hexo new <title>
 
 # 存在的问题 #
 
-Git中文名乱码
+
+## Markdown语法高亮支持的语言列表 ##
+Markdown可以在引用的 block 里面指定代码 highlight 时候使用的语言，
+```csharp
+// begin code block with " ```csharp " to specify language as C#
+using System;
+
+namespace Demo
+{
+  public class DemoClass: IHighlight
+  {
+    private string _language;
+
+    public string GetLanguage()
+    {
+      return this._language;
+    }
+  }
+
+}
+// end code block with " ``` "
+```
+
+支持的全部语言列表参见 [Syntax highlighting in markdown] (https://support.codebasehq.com/articles/tips-tricks/syntax-highlighting-in-markdown)
+
 
 # Refrence #
 [npm 模块安装机制简介](http://www.ruanyifeng.com/blog/2016/01/npm-install.html)
