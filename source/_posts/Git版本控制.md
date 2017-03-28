@@ -64,7 +64,7 @@ categories: 技术
     网络服务器上面Git Center里面，用来保存Repository的地方，跟本地Repository相对应，通过Pull/Push/Clone等方式进行操作。
 ```
 
-这四个部分，尤其是前面local的三个部分，构成了我们日常使用Git的主要场景，在尝试过一些git的基本操作，比如下面这些命令以后，需要再进一步的时候，就需要对于这样一个基本结构，还有这些地方与Git管理的文件的状态之间的对应关系有着清晰的认识。
+这四个部分，尤其是前面local的三个部分，构成了我们日常使用Git的主要场景，在尝试过一些git的基本操作，比如下面这些命令以后
 
 ```
 $ git pull
@@ -73,7 +73,7 @@ $ git add .
 $ git commit -m "xxx"
 $ git push
 ```
-
+需要再进一步的时候，就需要对于这样一个基本结构，还有这些地方与Git管理的文件的状态之间的对应关系有着清晰的认识。
 
 ## Git文件的状态和迁移 ##
 对应于上面一节提到的Git系统的几个部分，在某个时刻，使用Git管理的文件就有可能处于不同的位置，拥有不同的状态。下面的图就给出了Git文件可能的状态
@@ -105,6 +105,66 @@ $ git status -s
 
 
 但是使用命令行仍然是Git最主要和最为方便的模式,因此当你使用了一段时间的Git以后，使用 *git status -s* 命令查看文件的状态，并且清晰的知道其所在的位置（工作区，暂存区和git repository），和可能的状态转移，以及使用什么命令进行操作，就非常的重要了。这也是区别知道git和真正会用git的很重要一点。
+
+## Rollback: Clean，Reset, Checkout, Revert的使用 ##
+
+最初的时候，我们的在git里面对文件的操作都是正向的，也就是 add/commit/push 这些命令，如果有问题，也可以通过修改以后再次提交的方法进行覆盖。但是在管理很多的code的时候，这样人肉的方法就会显得效率很低。
+
+作为版本控制的系统，Git其实已经提供了丰富的命令来支持rollback的操作， 有
+```
+$ git clean
+$ git reset
+$ git checkout
+$ git revert
+```
+
+### 作用域 ###
+
+Reset/Checkout 命令可以支持在文件level和commit的level进行操作，参数当中是否包含文件路径决定了这些操作是对文件还是对commit有效。
+
+### 主要 Scenarios ###
+
+下面以基本scenario为例，来看看reset操作怎么满足我们rollback的需求。
+
+前面提到过，Git 主要有三个部分组成（不考虑 remote repository）： Workspace，Staging Area 和 Repository。当文件处于他们当中不同的位置（对应不同的状态）的时候，通过对于的操作都可以进行rollback， 以文件123.txt 为例：
+
+#### Rollback from Create (Not yet Add) ####
+
+   这个时候，文件的状态是 unstaged/untracked， 只是在本地有一个文件而已，要进行删除的话，使用 git clean 命令。
+   ```
+   $ git clean -f 
+   ```
+   主要的参数有 d/n/f：更详细的内容可以参考 [git clean --help]()
+```
+    -d: 同时删除untracked的目录
+    -n: 显示将会做什么，但是不会真的删除文件
+    -f：force， 最终删除文件
+```
+下图显示了其状态的变化
+
+
+#### Rollback from Add ####
+
+如果文件已经使用 git add 
+
+
+#### Rollback from Commit ####
+
+
+
+
+
+
+
+
+
+
+
+
+[//]:![](rollback_redundance.png)>
+<div align="center">
+<img src="rollback_redundance.png" width="70%" align="center">
+</div>
 
 
 ## Git的内部实现 ##
