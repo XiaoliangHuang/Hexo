@@ -128,42 +128,88 @@ Reset/Checkout 命令可以支持在文件level和commit的level进行操作，�
 
 前面提到过，Git 主要有三个部分组成（不考虑 remote repository）： Workspace，Staging Area 和 Repository。当文件处于他们当中不同的位置（对应不同的状态）的时候，通过对于的操作都可以进行rollback， 以文件123.txt 为例：
 
-#### Rollback from Create (Not yet Add) ####
+#### (1). Rollback from Create (Not yet Add) ####
 
-   这个时候，文件的状态是 unstaged/untracked， 只是在本地有一个文件而已，要进行删除的话，使用 git clean 命令。
-   ```
-   $ git clean -f 
-   ```
-   主要的参数有 d/n/f：更详细的内容可以参考 [git clean --help]()
+这个时候，文件的状态是 unstaged/untracked， 只是在本地有一个文件而已，要进行删除的话，使用 git clean 命令。
+```
+$ git clean -f
+```
+主要的参数有 d/n/f：
 ```
     -d: 同时删除untracked的目录
     -n: 显示将会做什么，但是不会真的删除文件
     -f：force， 最终删除文件
 ```
-下图显示了其状态的变化
 
-
-#### Rollback from Add ####
-
-如果文件已经使用 git add 
-
-
-#### Rollback from Commit ####
-
-
-
-
-
-
-
-
-
-
-
-
-[//]:![](rollback_redundance.png)>
 <div align="center">
-<img src="rollback_redundance.png" width="70%" align="center">
+<img src="git_clean_bash.png" width="70%" align="center">
+</div>
+
+[//]:![](git_clean_bash.png)
+
+要特别提出的是[-n]() 这个参数，会用 *“would remove”* 提示你将会进行的操作供你检验，但是文件并不会真的被删除
+```
+$ git clean -nf reset.txt
+Would remove reset.txt
+```
+更详细的内容可以参考 [git clean --help]()
+
+#### (2). Rollback from Add ####
+
+
+如果文件已经使用 git add, 那么文件的状态就是 stacked/modifed, 要把文件从staging area里面去掉，就需要使用 git reset 命令
+
+```
+$ git reset 123.txt
+```
+
+<div align="center">
+<img src="git_reset_add.png" width="70%" align="center">
+</div>
+
+[//]:![](git_reset_add.png)
+
+这时候文件就会从staging area里面删掉，然后恢复到workspace。
+reset 命令还有一些参数来控制rollback的效果，比如说到workspace还是staging area，但是只在只对commit的时候才有用，就放到下面一节描述了。
+
+Rest 到 workspace以后，如果要继续删除，就像上面说的那样，使用 git clean 命令就可以了。
+
+
+#### (3). Rollback from Commit ####
+
+如果文件已经用 git commit 提交到repository, 那么文件的状态就是 stacked/modifed, 要把文件从staging area里面去掉，就需要使用 git reset 命令
+
+```
+$ git reset 123.txt
+```
+
+<div align="center">
+<img src="git_reset_add.png" width="70%" align="center">
+</div>
+
+[//]:![](git_reset_add.png)
+
+这时候文件就会从staging area里面删掉，然后恢复到workspace。
+reset 命令还有一些参数来控制rollback的效果，比如说到workspace还是staging area，但是只在只对commit的时候才有用，就放到下面一节描述了。
+
+
+
+#### (3). Rollback from Branch ####
+
+
+
+
+
+
+
+
+
+
+
+
+[//]:![](git_rollback_scenarios.png)>
+<div align="center">
+<img src="git_rollback_scenarios.png" width="60%" align="center">
 </div>
 
 
