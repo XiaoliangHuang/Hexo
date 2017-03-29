@@ -177,10 +177,17 @@ Rest 到 workspace以后，如果要继续删除，就像上面说的那样，�
 
 #### (3). Rollback from Commit ####
 
-如果文件已经用 git commit 提交到repository, 那么文件的状态就是 stacked/modifed, 要把文件从staging area里面去掉，就需要使用 git reset 命令
+如果文件已经用 git commit 提交到repository, 那么文件的状态就是 stacked/modifed, 要把文件从staging area里面去掉，就需要使用 git reset 命令。
+
+前面提到过作用域的问题，reset命令后面是不是带有文件名，将会决定这个rollback操作影响的对象是一个文件还是一整个commit（可以包含多个文件修改）
+
+
+##### 文件层面的 reset 操作 #####
+
+如下所示，如果reset命令后面带有具体的路径，那么commit里面与这个路径/文件不相关的文件就不会被影响。
 
 ```
-$ git reset 123.txt
+$ git reset head^ 123.txt
 ```
 
 <div align="center">
@@ -189,28 +196,86 @@ $ git reset 123.txt
 
 [//]:![](git_reset_add.png)
 
-这时候文件就会从staging area里面删掉，然后恢复到workspace。
-reset 命令还有一些参数来控制rollback的效果，比如说到workspace还是staging area，但是只在只对commit的时候才有用，就放到下面一节描述了。
+这时候文件的snapshot就会从staging area里面删掉，然后恢复到workspace。
 
-
-
-#### (3). Rollback from Branch ####
-
-
-
-
-
-
-
-
-
-
-
+下面这张图显示了 clean 和 reset 命令对文件的影响
 
 [//]:![](git_rollback_scenarios.png)>
 <div align="center">
 <img src="git_rollback_scenarios.png" width="60%" align="center">
 </div>
+
+
+```
+HEAD 参数：
+
+然后我们注意到，对Commit进行rollback操作的时候，有个 head 的参数，后面还带有^或者是~2这样的符号, 这个参数表明的是rollback到哪个commit。 HEAD其实是一个指针（Git内部结构里面会讲到），指向当前最新的commit, head^表示的是parent，也就是上一个commit，head^^这是表示再早一个的commit。当需要rollback到更早的commit的时候，则需要使用~n的表示方法，所以head^ 跟 head~1是等价的。
+
+```
+要查看head或者head^对应的commit，运行下面的命令就可以了
+```
+$ git show head
+```
+
+然后还要说明的是，当repository里面只包含一个commit的时候，这个reset命令其实是不起作用的，因为HEAD再往前找不到更早的commit了。但是这个时候因为只有一个commit，reset相当于重新init一个git，所以也并没有关系。
+
+
+##### Commit 层面的 reset 操作 #####
+
+当通过reset来rollback整个commit的时候，其作用域就是所有包含在commit里面的文件。下面的例子说明了两个文件时候的情况。
+
+<div align="center">
+<img src="git_reset_commit.png" width="70%" align="center">
+</div>
+
+[//]:![](git_reset_commit.png)
+
+可以看到，commit过的两个文件都被放回到了staging area里面，变成modified的状态了。
+
+需要说明的是，当使用reset命令对commit作用域进行操作的时候，head指针会移动到reset之后的那个commit。所以show head 命令以后，我么看到的commit是init而不是update。
+
+reset 命令还有一些参数来控制rollback的效果，比如说到workspace还是staging area
+
+```
+--soft – 缓存区和工作目录都不会被改变
+--mixed – 默认选项。缓存区和你指定的提交同步，但工作目录不受影响
+--hard – 缓存区和工作目录都同步到你指定的提交
+```
+<div align="center">
+<img src="git_reset_commit_parameters.png" width="60%" align="center">
+</div>
+
+[//]:![](git_reset_commit_parameters.png)
+
+##### 通过 revert 来进行 commit 层面的rollback #####
+
+除了 Reset 之外， git 还提供了一个命令 Revert 来进行rollback的操作，但是不同的是， Revert 命令不会往前移动 HEAD，而是会把修改当成一个新的commit 附加在原先的 HEAD 后面，并且移动 HEAD 到最新的 commit。
+
+
+#### (3). Rollback from Branch ####
+
+方便的 branch 分支管理是 Git 的一个重要特点，通过新建branch，可以针对一个feature进行独立开发，也可以很容易的在几个人之前share 临时的change （SD 里面可能就需要通过dpk打包之类的方式来实现）。
+
+所以checkout 应该是使用频率仅次于add/commit/push/pull 的命令了，当传入分支名时，可以切换到那个分支。
+```
+git checkout hotfix
+```
+
+上面这个命令做的不过是将HEAD移到一个新的分支，然后更新工作目录。因为这可能会覆盖本地的修改，Git强制你提交或者缓存工作目录中的所有更改，不然在checkout的时候这些更改都会丢失。和git reset不一样的是，git checkout没有移动这些分支。
+
+下面这张图说明了 checkout 的使用效果。
+
+<div align="center">
+<img src="git_checkout.png" width="60%" align="center">
+</div>
+
+[//]:![](git_checkout.png)
+
+
+这一章节总结了git里面rollback相关的主要scenario和相关的解决办法，关于rollback 还有更多细致的分析和别的操作方法，比如checkout到某个commit，以及关于rollback时候，git内部结构的变化，可以参考[代码回滚：Reset、Checkout、Revert的选择](https://github.com/geeeeeeeeek/git-recipes/wiki/5.2-代码回滚%EF%BC%9AReset、Checkout、Revert的选择)
+
+### Merge on Conflict ###
+
 
 
 ## Git的内部实现 ##
