@@ -182,7 +182,7 @@ Rest 到 workspace以后，如果要继续删除，就像上面说的那样，�
 前面提到过作用域的问题，reset命令后面是不是带有文件名，将会决定这个rollback操作影响的对象是一个文件还是一整个commit（可以包含多个文件修改）
 
 
-##### 文件层面的 reset 操作 #####
+##### (3.1). 文件层面的 reset 操作 #####
 
 如下所示，如果reset命令后面带有具体的路径，那么commit里面与这个路径/文件不相关的文件就不会被影响。
 
@@ -220,7 +220,7 @@ $ git show head
 然后还要说明的是，当repository里面只包含一个commit的时候，这个reset命令其实是不起作用的，因为HEAD再往前找不到更早的commit了。但是这个时候因为只有一个commit，reset相当于重新init一个git，所以也并没有关系。
 
 
-##### Commit 层面的 reset 操作 #####
+##### (3.2). Commit 层面的 reset 操作 #####
 
 当通过reset来rollback整个commit的时候，其作用域就是所有包含在commit里面的文件。下面的例子说明了两个文件时候的情况。
 
@@ -247,12 +247,12 @@ reset 命令还有一些参数来控制rollback的效果，比如说到workspace
 
 [//]:![](git_reset_commit_parameters.png)
 
-##### 通过 revert 来进行 commit 层面的rollback #####
+##### (3.3). 通过 revert 来进行 commit 层面的rollback #####
 
 除了 Reset 之外， git 还提供了一个命令 Revert 来进行rollback的操作，但是不同的是， Revert 命令不会往前移动 HEAD，而是会把修改当成一个新的commit 附加在原先的 HEAD 后面，并且移动 HEAD 到最新的 commit。
 
 
-#### (3). Rollback from Branch ####
+#### (4). Rollback from Branch ####
 
 方便的 branch 分支管理是 Git 的一个重要特点，通过新建branch，可以针对一个feature进行独立开发，也可以很容易的在几个人之前share 临时的change （SD 里面可能就需要通过dpk打包之类的方式来实现）。
 
