@@ -251,6 +251,10 @@ reset 命令还有一些参数来控制rollback的效果，比如说到workspace
 
 除了 Reset 之外， git 还提供了一个命令 Revert 来进行rollback的操作，但是不同的是， Revert 命令不会往前移动 HEAD，而是会把修改当成一个新的commit 附加在原先的 HEAD 后面，并且移动 HEAD 到最新的 commit。
 
+<div align="center">
+<img src="reset_vs_revert.png" width="80%" align="center">
+</div>
+
 
 #### (4). Rollback from Branch ####
 
