@@ -128,7 +128,7 @@ Reset/Checkout 命令可以支持在文件level和commit的level进行操作，�
 
 前面提到过，Git 主要有三个部分组成（不考虑 remote repository）： Workspace，Staging Area 和 Repository。当文件处于他们当中不同的位置（对应不同的状态）的时候，通过对于的操作都可以进行rollback， 以文件123.txt 为例：
 
-#### (1). Rollback from Create (Not yet Add) ####
+#### > Rollback from Create (Not yet Add) ####
 
 这个时候，文件的状态是 unstaged/untracked， 只是在本地有一个文件而已，要进行删除的话，使用 git clean 命令。
 ```
@@ -154,7 +154,7 @@ Would remove reset.txt
 ```
 更详细的内容可以参考 [git clean --help]()
 
-#### (2). Rollback from Add ####
+#### > Rollback from Add ####
 
 
 如果文件已经使用 git add, 那么文件的状态就是 stacked/modifed, 要把文件从staging area里面去掉，就需要使用 git reset 命令
@@ -175,14 +175,14 @@ reset 命令还有一些参数来控制rollback的效果，比如说到workspace
 Rest 到 workspace以后，如果要继续删除，就像上面说的那样，使用 git clean 命令就可以了。
 
 
-#### (3). Rollback from Commit ####
+#### > Rollback from Commit ####
 
 如果文件已经用 git commit 提交到repository, 那么文件的状态就是 stacked/modifed, 要把文件从staging area里面去掉，就需要使用 git reset 命令。
 
 前面提到过作用域的问题，reset命令后面是不是带有文件名，将会决定这个rollback操作影响的对象是一个文件还是一整个commit（可以包含多个文件修改）
 
 
-##### (3.1). 文件层面的 reset 操作 #####
+##### -- 文件层面的 reset 操作 #####
 
 如下所示，如果reset命令后面带有具体的路径，那么commit里面与这个路径/文件不相关的文件就不会被影响。
 
@@ -220,7 +220,7 @@ $ git show head
 然后还要说明的是，当repository里面只包含一个commit的时候，这个reset命令其实是不起作用的，因为HEAD再往前找不到更早的commit了。但是这个时候因为只有一个commit，reset相当于重新init一个git，所以也并没有关系。
 
 
-##### (3.2). Commit 层面的 reset 操作 #####
+##### -- Commit 层面的 reset 操作 #####
 
 当通过reset来rollback整个commit的时候，其作用域就是所有包含在commit里面的文件。下面的例子说明了两个文件时候的情况。
 
@@ -247,7 +247,7 @@ reset 命令还有一些参数来控制rollback的效果，比如说到workspace
 
 [//]:![](git_reset_commit_parameters.png)
 
-##### (3.3). 通过 revert 来进行 commit 层面的rollback #####
+##### -- 通过 revert 来进行 commit 层面的rollback #####
 
 除了 Reset 之外， git 还提供了一个命令 Revert 来进行rollback的操作，但是不同的是， Revert 命令不会往前移动 HEAD，而是会把修改当成一个新的commit 附加在原先的 HEAD 后面，并且移动 HEAD 到最新的 commit。
 
@@ -256,7 +256,7 @@ reset 命令还有一些参数来控制rollback的效果，比如说到workspace
 </div>
 
 
-#### (4). Rollback from Branch ####
+#### > Rollback from Branch ####
 
 方便的 branch 分支管理是 Git 的一个重要特点，通过新建branch，可以针对一个feature进行独立开发，也可以很容易的在几个人之前share 临时的change （SD 里面可能就需要通过dpk打包之类的方式来实现）。
 
@@ -280,7 +280,7 @@ git checkout hotfix
 
 ### Merge on Conflict ###
 
-
+### Submodule: Repository Reference  ###
 
 ## Git的内部实现 ##
 
