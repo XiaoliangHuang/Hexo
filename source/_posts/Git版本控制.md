@@ -106,6 +106,10 @@ $ git status -s
 
 但是使用命令行仍然是Git最主要和最为方便的模式,因此当你使用了一段时间的Git以后，使用 *git status -s* 命令查看文件的状态，并且清晰的知道其所在的位置（工作区，暂存区和git repository），和可能的状态转移，以及使用什么命令进行操作，就非常的重要了。这也是区别知道git和真正会用git的很重要一点。
 
+
+# Git的一些使用经验 #
+
+
 ## Rollback: Clean，Reset, Checkout, Revert的使用 ##
 
 最初的时候，我们的在git里面对文件的操作都是正向的，也就是 add/commit/push 这些命令，如果有问题，也可以通过修改以后再次提交的方法进行覆盖。但是在管理很多的code的时候，这样人肉的方法就会显得效率很低。
@@ -128,7 +132,7 @@ Reset/Checkout 命令可以支持在文件level和commit的level进行操作，�
 
 前面提到过，Git 主要有三个部分组成（不考虑 remote repository）： Workspace，Staging Area 和 Repository。当文件处于他们当中不同的位置（对应不同的状态）的时候，通过对于的操作都可以进行rollback， 以文件123.txt 为例：
 
-#### > Rollback from Create (Not yet Add) ####
+####  Rollback from Create ####
 
 这个时候，文件的状态是 unstaged/untracked， 只是在本地有一个文件而已，要进行删除的话，使用 git clean 命令。
 ```
@@ -154,7 +158,7 @@ Would remove reset.txt
 ```
 更详细的内容可以参考 [git clean --help]()
 
-#### > Rollback from Add ####
+####  Rollback from Add ####
 
 
 如果文件已经使用 git add, 那么文件的状态就是 stacked/modifed, 要把文件从staging area里面去掉，就需要使用 git reset 命令
@@ -175,14 +179,14 @@ reset 命令还有一些参数来控制rollback的效果，比如说到workspace
 Rest 到 workspace以后，如果要继续删除，就像上面说的那样，使用 git clean 命令就可以了。
 
 
-#### > Rollback from Commit ####
+####  Rollback from Commit ####
 
 如果文件已经用 git commit 提交到repository, 那么文件的状态就是 stacked/modifed, 要把文件从staging area里面去掉，就需要使用 git reset 命令。
 
 前面提到过作用域的问题，reset命令后面是不是带有文件名，将会决定这个rollback操作影响的对象是一个文件还是一整个commit（可以包含多个文件修改）
 
 
-##### -- 文件层面的 reset 操作 #####
+> __1. 文件层面的 reset 操作__
 
 如下所示，如果reset命令后面带有具体的路径，那么commit里面与这个路径/文件不相关的文件就不会被影响。
 
@@ -220,7 +224,7 @@ $ git show head
 然后还要说明的是，当repository里面只包含一个commit的时候，这个reset命令其实是不起作用的，因为HEAD再往前找不到更早的commit了。但是这个时候因为只有一个commit，reset相当于重新init一个git，所以也并没有关系。
 
 
-##### -- Commit 层面的 reset 操作 #####
+> __2. Commit 层面的 reset 操作__
 
 当通过reset来rollback整个commit的时候，其作用域就是所有包含在commit里面的文件。下面的例子说明了两个文件时候的情况。
 
@@ -247,7 +251,7 @@ reset 命令还有一些参数来控制rollback的效果，比如说到workspace
 
 [//]:![](git_reset_commit_parameters.png)
 
-##### -- 通过 revert 来进行 commit 层面的rollback #####
+> __3. 通过 revert 来进行 commit 层面的rollback__
 
 除了 Reset 之外， git 还提供了一个命令 Revert 来进行rollback的操作，但是不同的是， Revert 命令不会往前移动 HEAD，而是会把修改当成一个新的commit 附加在原先的 HEAD 后面，并且移动 HEAD 到最新的 commit。
 
@@ -256,7 +260,7 @@ reset 命令还有一些参数来控制rollback的效果，比如说到workspace
 </div>
 
 
-#### > Rollback from Branch ####
+####  Rollback from Branch ####
 
 方便的 branch 分支管理是 Git 的一个重要特点，通过新建branch，可以针对一个feature进行独立开发，也可以很容易的在几个人之前share 临时的change （SD 里面可能就需要通过dpk打包之类的方式来实现）。
 
@@ -278,11 +282,112 @@ git checkout hotfix
 
 这一章节总结了git里面rollback相关的主要scenario和相关的解决办法，关于rollback 还有更多细致的分析和别的操作方法，比如checkout到某个commit，以及关于rollback时候，git内部结构的变化，可以参考[代码回滚：Reset、Checkout、Revert的选择](https://github.com/geeeeeeeeek/git-recipes/wiki/5.2-代码回滚%EF%BC%9AReset、Checkout、Revert的选择)
 
+---
 ### Merge on Conflict ###
 
-### Submodule: Repository Reference  ###
+----
+### Git里面的Submodule ###
 
-## Git的内部实现 ##
+submodule 是git里面repository层面进行引用的一种方式, 比如说你的project里面引用到了别人同时开发的另外一个project, 然后大家可以同步更新又保持相互的独立。其作用有点像VS solution里面，project之间的相互引用关系，如果一个修改同时涉及到几个project，那这种方式就会比较方便。
+
+从project层面来说，进行引用一般有三种方式：
+
+>1. 合并代码到一起，这样的好处是都可见，但是相互独立性就没那么好了，而且solution会变得很庞大。
+>2. 通过nuget package之类的方式完全独立起来，只引用稳定release的版本，这样的好处是独立，方便，但是可能没办法同时进行相关的修改。
+>3. 通过project来进行引用，保持相互的独立的同时，能够在需要的时候进行同时的开发修改。
+
+Git 里面的submodule就是类似于第三种的模式，通过一种link的模式将其他的repository引用进来。需要的时候，进行更新。需要说明的是：
+>1. Git的submodule在外层引用者的remote repository里面，只是一个空文件夹形式存在的空文件夹。但是在本地，还是需要将submodule repository的内容同步下来。
+>2. Submodule可以跨service完全独立开来，只要是基于git并且拥有访问权限，比如说，通过Github引用一个gitcafe的项目。
+
+下面展示了Hexo Repository里面，通过submodule形式引用fexo主题时候，github上面repository的结构
+
+<div align="center">
+<img src="submodule.png" width="80%" align="center">
+</div>
+
+利用submodule，就可以将第三方的fexo主题跟我自己的hexo项目分开进行管理了。
+
+在解释了submodule是什么以后，下面介绍一下submodule的使用，包括：
+>* 如何添加一个submodule、
+>* Repository里面有submodule的时候，如何clone
+>* 如何更新submodule
+>* 如何移除submodule
+>* Repository里面有submodule的时候，如何clone
+
+#### 添加一个submodule ####
+要添加一个submodule的时候，使用 git submodule add 命令：
+```
+$ git submodule add <repository> <directory>
+```
+这样就可以吧repository的内容**注册**成directory下面的一个submodule了，比如说通过下面的命令来将fexo注册到我的git repository里面作为一个submodule
+
+```
+$ git submodule add git://github.com/XiaoliangHuang/fexo.git
+
+```
+然后在repository里面就会生产一个.gitmodules的文件，还有一个fexo的文件夹，里面copy了fexo 这个repository的全部文件.
+
+<div align="center">
+<img src="git_submodule_add.png" width="70%" align="center">
+</div>
+
+要查看sumodule的状态，可以通过git submodule status命令, 可以看到这个 submodule 已经被注册了并且指向了哪一个commit。
+```
+$ git submodule status
+ 6cce4cbbd0d27ce7d4207f932bcecb762958be98 fexo (v1.0.0-58-g6cce4cb)
+
+```
+#### Repository里面有submodule的时候，如何clone ####
+
+当我们添加了一个submodule并且push到了自己的repository里面以后，如果其他人或者自己从其他的电脑上面需要clone这个包含了submodule的repository，要怎么做呢？
+
+默认情况下，git clone 不会下在submodule (会包含空的submodule的folder，和一个.gitmodules文件)，为了达到自己的目的，需要使用
+```
+$ git submodule init
+$ git submodule update
+$ git checkout master
+```
+
+```bash
+$ git submodule init
+Submodule 'fexo' (git://github.com/XiaoliangHuang/fexo.git) registered for path 'fexo'
+ 
+$ git submodule update
+Cloning into 'D:/Test/git submodule/MyRepo_2/test/fexo'...
+Submodule path 'fexo': checked out '6cce4cbbd0d27ce7d4207f932bcecb762958be98'
+ 
+$ git submodule status
+ 6cce4cbbd0d27ce7d4207f932bcecb762958be98 fexo (v1.0.0-58-g6cce4cb)
+
+```
+进入到submodule的folder以后，会看到这个时候head 并没有指向某个branch, 比如master，而是处于游离的状态：
+```
+$ git status
+HEAD detached at 6cce4cb
+nothing to commit, working tree clean
+```
+这时候就需要在里面使用 **git checkout master** 命令切换到master branch了，不然以后在submit 和push的时候会出错。
+
+```bash
+$ git checkout master
+Switched to branch 'master'
+Your branch is up-to-date with 'origin/master'.
+ 
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+nothing to commit, working tree clean
+
+```
+
+### 更新一个submodule ###
+
+一个submodule就是一个完整的git repository，所以切到submodule的目录以后，就可以使用git的常规命令来进行操作了。
+
+在更新之前，需要注意的是init update下来的submodule是否是在制定的branch上面，比如master，否则需要先用 git checkout master 来进行切换操作。
+
+### 删除一个submodule ###
 
 ## Paging 分页器 ##
 
@@ -331,6 +436,7 @@ $ export LESS=FRX
 ```
 $ git config --global core.pager 'less -+$LESS -FRX'
 ```
+
 # Tips #
 ## Config Git--局部设置与全局设置 ##
 
@@ -417,6 +523,8 @@ $ export LESSCHARSET=utf-8
 [Git Config 命令查看配置文件](https://cnbin.github.io/blog/2015/06/19/git-config-ming-ling-cha-kan-pei-zhi-wen-jian/)
 
 [如何使用 Git Submodule](http://linlexus.com/git-submodule-usage/)
+
+[Git submodule的坑](http://blog.devtang.com/2013/05/08/git-submodule-issues/)
 
 [解决 Git 在 windows 下中文乱码的问题](https://gist.github.com/nightire/5069597)
 
