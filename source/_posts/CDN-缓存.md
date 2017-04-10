@@ -86,7 +86,7 @@ CDN 最主要的作用是对网站的内容进行缓存，那么对应的就有�
 > * __流媒体加速:__ 各类媒体网站，手机APP客户端
 > * __HTTPS安全加速:__ 针对HTTPS协议的缓存加速服务，需要域名对应的certificate
 
-### CDN 缓存规则（失效与更新） ###
+### CDN 缓存策略（失效与更新） ###
 
 有缓存就有有效期和更新时间的问题，对CDN来说，通常采取下面的方法进行处理
 
@@ -94,6 +94,12 @@ CDN 最主要的作用是对网站的内容进行缓存，那么对应的就有�
 > __Push:__ 后台控制，手动更新缓存
 
 CDN 节点访问源站点过程，就叫做回源，前面在讲CDN的作用的时候提到过，如果CDN的回源算法不合理，也会对源站服务器造成很大的压力。
+
+[阿里云CDN](https://help.aliyun.com/document_detail/27136.html?spm=5176.doc27112.6.576.6RwaW8)的这张图很好的描述了CDN 服务的缓存策略和配置
+
+<div align="center">
+<img src="cache_strategy.png" width="90%" align="center">
+</div>
 
 ---
 ## DNS ##
