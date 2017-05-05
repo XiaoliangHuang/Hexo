@@ -1,11 +1,13 @@
 ---
-title: 使用 VS Code + Python Client 访问 Redis
+title: 使用 VS Code + Python Client Lib 访问 Redis
 date: 2017-04-18 21:13:54
 tags: [Redis, VS Code, Python]
 categories: [技术]
 ---
 
-作为一种缓存工具, Redis 肯定需要结合我们的产品进行使用，而不是停留在`Command line` 和 `Redis Desktop Manager` 这样的 ‘练手’ 阶段，下面我们就以`Python Client`为例说说Redis编程中的使用。
+作为一种缓存工具, Redis 肯定需要结合我们的产品进行使用，而不是停留在`Command line` 和 `Redis Desktop Manager` 这样的 ‘练手’ 阶段，下面我们就以`Python Client Lib`为例说说Redis编程中的使用。
+
+# Redis 的 Client/Server结构 #
 
 我们知道，Redis是一种 `Client + Server`的模式，所以在实际使用当中，也是分两个部分
 
@@ -14,13 +16,13 @@ categories: [技术]
 >自己搭建Redis的server, 建立内存数据库，需要的时候，通过RDB/AOF进行持久化,并且能够通过集群的方式进行扩展。
 >
 >__* Client__
->某种语言的扩展支持，通过package之类的模式import，对服务器进行访问和操作。
+>Client广义上面讲应该是访问Server的工具，可以是命令行，可以是带GUI的工具，更多的是Client Libs, 也就是某种语言的扩展支持，通过package之类的模式import，对服务器进行访问和操作，这里要介绍的Python Client其实也是Client Libs的一种。
 
 Server和Clients的关系如下图所示：
 
 ![](redis_in_windows.svg)
 
-# Redis Clients 支持的语言 #
+# Redis Client Lib 支持的语言 #
 
 打开Redis的官方网站[Clients的列表](https://redis.io/clients)，有差不多50种，可以说，Redis几乎支持所有常用的编程语言，这也说明了Redis在如今有多么受欢迎。
 
