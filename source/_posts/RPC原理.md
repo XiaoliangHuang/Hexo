@@ -8,4 +8,4 @@ categories: [技术]
 
 # RPC 概述 #
 
-![](rpc.svg)
+![](RPC.svg)
